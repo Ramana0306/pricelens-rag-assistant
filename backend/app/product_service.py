@@ -70,9 +70,23 @@ def extract_product(url: str) -> dict:
             response.raise_for_status()
     except httpx.HTTPStatusError as exc:
         code = exc.response.status_code
+        print(
+            f"Product page request failed: HTTP {code}, "
+            f"URL host: {urlparse(url).hostname}"
+        )
+
         if code in {401, 403, 429}:
-            raise RuntimeError("The retailer blocked automated page reading. Use ‘Add text manually’ and paste the product specifications or description.") from exc
-        raise RuntimeError(f"The product page returned HTTP {code}. Check the URL or add the product text manually.") from exc
+            raise RuntimeError(
+                "The retailer blocked automated page reading. "
+                "Use 'Add text manually' and paste the product specifications "
+                "or description."
+            ) from exc
+
+        raise RuntimeError(
+            f"The product page returned HTTP {code}. "
+            "Check the URL or add the product text manually."
+        ) from exc
+
     except httpx.HTTPError as exc:
         raise RuntimeError("Could not read that product page. The site may block automated access; try adding the product information manually.") from exc
 
