@@ -4,7 +4,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     database_url: str = "postgresql+psycopg://postgres:password@localhost:5432/pricelens"
     gemini_api_key: str = ""
-    gemini_chat_model: str = "gemini-2.5-flash"
+    gemini_chat_model: str = "gemini-3.8-flash"
     gemini_embedding_model: str = "gemini-embedding-001"
     openai_api_key: str = ""
     openai_chat_model: str = "gpt-4.1-mini"
